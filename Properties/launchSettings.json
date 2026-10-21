@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RefactoringCode": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
