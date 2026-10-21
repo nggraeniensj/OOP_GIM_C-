@@ -1,4 +1,4 @@
-﻿
+
 using System;
 namespace KerangkaGame
 {
@@ -63,7 +63,11 @@ namespace KerangkaGame
                 }
                 else if (tombol.Key == ConsoleKey.LeftArrow)
                 {
-                    posisi -= 2;
+                    if (posisi >= 2)
+                    {
+                        posisi -= 2;
+                    }
+
                     Console.WriteLine($"Posisi sekarang: {posisi}");
                 }
                 else if (tombol.Key == ConsoleKey.UpArrow)
@@ -79,13 +83,36 @@ namespace KerangkaGame
             }
         }
 
-        //public void BerpindahPosisi(int jumlahLangkah)
-        //{
-        //    int posisiAwal = 0;
-        //    int posisiSaatIni = posisiAwal + jumlahLangkah;
 
-        //    Console.WriteLine($"Sekarang {nama} berada di posisi: {posisiSaatIni}");
-        //}
+
+        public void BerpindahPosisi()
+        {
+            posisi = 0;
+
+            while (true)
+            {
+                Console.Write("\nMau berapa langkah pindah posisi? (ketik c untuk berhenti): ");
+
+                string input = Console.ReadLine();
+
+                if (input.ToLower() == "c")
+                {
+                    Console.WriteLine("Berhenti bergerak.");
+                    break;
+                }
+
+                if (int.TryParse(input, out int jumlahLangkah))
+                {
+                    posisi += jumlahLangkah;
+                    Console.WriteLine($"Posisi sekarang: {posisi}");
+                }
+                else
+                {
+                    Console.WriteLine("Input tidak valid!");
+                }
+            }
+        }
+
     }
     class MainProgram
     {
@@ -97,7 +124,7 @@ namespace KerangkaGame
             musuh.Serang(player1);
 
 
-            // Meminta input pilihan penyembuhan dari pengguna
+            // input pilihan penyembuhan dari pengguna
             Console.Write("\nApakah ingin menyembuhkan hero? (ya/tidak): ");
             string pilihan = Console.ReadLine().ToLower().Trim();
 
@@ -115,15 +142,30 @@ namespace KerangkaGame
             }
 
 
-            //kanankiri
-            player1.Bergerak();
 
-            ////perpindahan posisi
-            //Console.WriteLine($"Posisi awal {player1.nama}: 0");
-            //Console.Write("Mau berapa langkah pindah posisi? ");
-            //int langkah = Convert.ToInt32(Console.ReadLine());
-            /////pindah
-            //player1.BerpindahPosisi(langkah);
+            //kanankiri
+            Console.WriteLine("\nMana yang kamu pilih?");
+            Console.WriteLine("1. Perpindahan Angka");
+            Console.WriteLine("2. Tombol Keyboard");
+            Console.Write("\nPilihanmu: ");
+
+            string pilihanGerak = Console.ReadLine();
+
+
+            if (pilihanGerak == "1")
+            {
+                Console.WriteLine($"Posisi awal {player1.nama}: 0");
+                player1.BerpindahPosisi();
+            }
+            else if (pilihanGerak == "2")
+            {
+                player1.Bergerak();
+            }
+            else
+            {
+                Console.WriteLine("Pilihan tidak valid!");
+            }
+
         }
     }
 }
